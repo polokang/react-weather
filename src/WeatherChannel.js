@@ -12,8 +12,11 @@ export default class WeatherChannel extends React.Component {
             curCity: 'Brisbane',
             condition: {
                 city: 'Brisbane, Au',
-                temp: '12c',
-                weather: 'Clear'
+                temp: {C:'12c',F:'12F'},
+                weather: 'Clear',
+                humidity: '100%',
+                wind_mph: '3',
+                wind_dir: 'NA'
             },
             days: []
             // condition: {
@@ -39,9 +42,11 @@ export default class WeatherChannel extends React.Component {
 
         const conditionData = {
             city: data.display_location.full,
-            // temp : {C: data.temp_c, F:data.temp_f},
-            temp: data.temp_c,
-            weather: data.weather
+            temp : {C: data.temp_c, F:data.temp_f},
+            weather: data.weather,
+            humidity:data.relative_humidity,
+            wind_mph:data.wind_mph,
+            wind_dir:data.wind_dir
         }
 
         this.setState({ condition: conditionData })
