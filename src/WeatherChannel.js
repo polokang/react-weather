@@ -2,15 +2,19 @@ import React from 'react'
 // import ToolBar from './Toolbar'
 import CityCondition from './CityCondition'
 import Forecaster from './Forecaster';
-import {Icon} from 'react-fa';
-import {fetchCondtionData} from './api/weather'
+import { Icon } from 'react-fa';
+import { fetchCondtionData } from './api/weather'
 
 export default class WeatherChannel extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             curCity: 'Brisbane',
-            condition: {},
+            condition: {
+                city: 'Brisbane, Au',
+                temp: '12c',
+                weather: 'Clear'
+            },
             days: []
             // condition: {
             //     city: 'Brisbane, Au',
@@ -28,24 +32,24 @@ export default class WeatherChannel extends React.Component {
     hundleCityChange(event) {
         const value = event.target.value;
         this.setState({ curCity: value });
-        
+
     }
 
-    onConditionLoad(data){
+    onConditionLoad(data) {
 
         const conditionData = {
-            city : data.display_location.full,
+            city: data.display_location.full,
             // temp : {C: data.temp_c, F:data.temp_f},
-            temp : data.temp_c,
-            weather : data.weather
+            temp: data.temp_c,
+            weather: data.weather
         }
 
-        this.setState({condition: conditionData})
+        this.setState({ condition: conditionData })
     }
 
-    handleSearch(){
+    handleSearch() {
         const city = this.state.curCity;
-        fetchCondtionData(city,this.onConditionLoad.bind(this))
+        fetchCondtionData(city, this.onConditionLoad.bind(this))
     }
 
     render() {
